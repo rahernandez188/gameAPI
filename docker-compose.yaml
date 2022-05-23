@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+
+    db:
+        image: mysql:8.0
+        restart: always
+        environment:
+          - MYSQL_ROOT_PASSWORD=t4k3h0m3
+          - MYSQL_DATABASE=gameapi
+          - MYSQL_USER=dockerhostuser
+          - MYSQL_PASSWORD=d0ck3rp4ss
+        ports:
+          - '3307:3306'
+        networks:
+          - nesjs-network
+        volumes:
+          - db:/var/lib/mysql
+          - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+    game-microservice:
+        container_name: game-microservice 
+        image: game:microservice
+        depends_on:
+            - db
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        command: npm start
+        ports:
+            - 3001:3001
+        environment:
+            DB_HOST: db
+            DB_PORT: 3306
+            DB_USER: dockerhostuser
+            DB_PASSWORD: d0ck3rp4ss
+            DB_NAME: gameapi
+        networks:
+            - nesjs-network
+        restart: unless-stopped    
+
+    game-app:
+        container_name: game-app 
+        image: game:app
+        depends_on:
+            - game-microservice
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        command: npm start
+        ports:
+            - 3000:3000
+        environment:
+            GAME_MICROSERVICE_HOST: game-microservice
+            GAME_MICROSERVICE_PORT: 3001
+        networks:
+            - nesjs-network
+        restart: unless-stopped
+
+
+
+
+volumes:
+    db:
+        driver: local
+
+networks:
+    nesjs-network:

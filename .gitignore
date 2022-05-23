@@ -1,0 +1,10 @@
+game_app/dist
+game_app/node_modules
+game_microservice/dist
+game_microservice/node_modules
+
+logs
+*.log
+game_app/*.log
+game_microservice/*.log
+

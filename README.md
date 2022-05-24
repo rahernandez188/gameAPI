@@ -11,7 +11,7 @@ Docker images game:app and game:microservice are required to run Game API. To bu
 ```
 bash build.sh
 ```
-You can check the images running `docker image ls`.
+You can check the images with the command `docker image ls`.
 
 ## Run Game API
 

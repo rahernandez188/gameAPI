@@ -84,7 +84,7 @@ Gets the game's publisher info. The game is specified with the id.
     "phone": "7418529630"
 }
 
-//Game was not found, 404 NOT FOUND returned
+//Game id was not found, 404 NOT FOUND returned
 {
     "id": 0,
     "name": "",

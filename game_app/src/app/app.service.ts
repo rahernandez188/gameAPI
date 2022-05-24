@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { Observable} from 'rxjs';
 
 
 @Injectable()
@@ -7,33 +8,32 @@ export class AppService {
 
   constructor( @Inject('GAME_MICROSERVICE') private readonly client: ClientProxy){}
 
-  getGameById(id: number){
-    return this.client.send({role: 'game', cmd: 'get-game-by-id'}, id);
+   async getGameById(id: number){
+    return await this.client.send({role: 'game', cmd: 'get-game-by-id'}, id).toPromise();
   }
 
-  getGamePublisher(id: number){
-    return this.client.send({role: 'game', cmd: 'get-game-publisher'}, id);
+   async getGamePublisher(id: number){
+    return await this.client.send({role: 'game', cmd: 'get-game-publisher'}, id).toPromise();
   }
 
-  createGame(createGameDto){
-    return this.client.send({role: 'game', cmd: 'create-game'}, createGameDto);
+  async createGame(createGameDto){
+    return await this.client.send({role: 'game', cmd: 'create-game'}, createGameDto).toPromise();
 
   }
 
-  updateGameById(id: number, updateGameDto){
+  async updateGameById(id: number, updateGameDto){
     updateGameDto.id = id;
-    console.log("App service:", updateGameDto);
-    return this.client.send({role: 'game', cmd: 'update-game-by-id'}, updateGameDto);
+    return await this.client.send({role: 'game', cmd: 'update-game-by-id'}, updateGameDto).toPromise();
 
   }
 
-  deleteGameById(id: number){
-    return this.client.send({role: 'game', cmd: 'delete-game-by-id'}, id);
+  async deleteGameById(id: number){
+    return await this.client.send({role: 'game', cmd: 'delete-game-by-id'}, id).toPromise();
   }
 
 
-  retireAndDiscount(){
-    return this.client.send({role: 'game', cmd: 'retire-and-discount'}, {});
+  async retireAndDiscount(){
+    return await this.client.send({role: 'game', cmd: 'retire-and-discount'}, {}).toPromise();
   }
   
 }

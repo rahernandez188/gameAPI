@@ -3,12 +3,11 @@ import { Publisher } from "../entities/publisher.entity";
 @EntityRepository(Publisher)
 export class PublisherRepository extends Repository<Publisher> {
 
-  async getPublisherById(publisherId: number){
-    //console.log("publisherId:", publisherId)
-    //console.log(this)
+  async getPublisherById(publisherId: Publisher){
+   
     let found = await this.findOne({
       where:{
-        id: publisherId
+        id: publisherId.id
       }
     });
     

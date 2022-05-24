@@ -1,3 +1,4 @@
+import { NotFoundException } from '@nestjs/common';
 import { EntityRepository, Repository, Between, LessThan } from "typeorm";
 import { Game } from "../entities/game.entity";
 @EntityRepository(Game)
@@ -9,19 +10,27 @@ export class GameRepository extends Repository<Game> {
     let found = await this.findOne({
       where:{
         id: gameId
-      }
+      },
+      relations:['publisher']
     });
     
-    if(found === undefined) found = {
-      id : 0,
-      title : '',
-      price : 0,
-      publisher: 0,
-      tags : '',
-      releaseDate : '0000-00-00 00:00:00'
-    };
+    if(found === undefined){
+      found = {
+        id : 0,
+        title : '',
+        price : 0,
+        publisher: {
+          id: 0,
+          name: '',
+          siret: '',
+          phone: ''
+        },
+        tags : '',
+        releaseDate : '1000-01-01 00:00:00Z'
+      };
+    } 
 
-    //console.log("Game found:", found);
+    console.log("Game found:", found);
     return  found;
   }
 

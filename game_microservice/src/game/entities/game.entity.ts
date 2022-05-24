@@ -12,15 +12,14 @@ export class Game {
   @Column()
   price: number;
 
-  //@ManyToOne(type => Publisher, publisher => publisher.id)
-  //@JoinColumn({name: "publisher"})
-  @Column()
-  publisher: number;
+  @ManyToOne(type => Publisher, publisher => publisher.id)
+  @JoinColumn({name: "publisher"})
+  publisher: Publisher;
 
   @Column()
   tags: string;
 
-  @Column()
+  @Column({type: 'datetime', default: '1000-01-01 00:00:00'})
   releaseDate: string;
 
   

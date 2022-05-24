@@ -19,8 +19,10 @@ CREATE TABLE `Game` (
   `id` int NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
   `tags` varchar(255) NOT NULL,
-  `releaseDate` varchar(255) NOT NULL,
+  `releaseDate` datetime NOT NULL,
   `publisher` int NOT NULL,
   `price` int NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `FK_e76bf72741bdb6caf6b50b07051` (`publisher`),
+  CONSTRAINT `FK_e76bf72741bdb6caf6b50b07051` FOREIGN KEY (`publisher`) REFERENCES `Publisher` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

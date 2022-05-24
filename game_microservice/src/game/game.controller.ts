@@ -9,36 +9,35 @@ export class GameController {
 
 
   @MessagePattern({role: 'game', cmd: 'get-game-by-id'})
-  getById(id: number){
-    console.log('Getting:', id);
-    return this.gameService.getGameById(id);
+  async getById(id: number){
+    return await this.gameService.getGameById(id);
   }
 
   @MessagePattern({role: 'game', cmd: 'get-game-publisher'})
-  getGamePublisher(id: number){
-    return this.gameService.getGamePublisher(id);
+  async getGamePublisher(id: number){
+    return await this.gameService.getGamePublisher(id);
   }
 
 
   @MessagePattern({role: 'game', cmd: 'create-game'})
-  create(createGameDto){
-    return this.gameService.createGame(createGameDto);
+  async create(createGameDto){
+    return await this.gameService.createGame(createGameDto);
   }
 
   @MessagePattern({role: 'game', cmd: 'update-game-by-id'})
-  updateById(gameDto ){
-    return this.gameService.updateGameById(gameDto);
+  async updateById(gameDto ){
+    return await this.gameService.updateGameById(gameDto);
   }
 
   @MessagePattern({role: 'game', cmd: 'delete-game-by-id'})
-  deleteById(id: number){
-    return this.gameService.deleteGameById(id);
+  async deleteById(id: number){
+    return await this.gameService.deleteGameById(id);
   }
 
 
   @MessagePattern({role: 'game', cmd: 'retire-and-discount'})
-  retireAndDiscount(){
-    return this.gameService.retireAndDiscount();
+  async retireAndDiscount(){
+    return await this.gameService.retireAndDiscount();
   }
 
 }

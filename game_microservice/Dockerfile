@@ -1,6 +1,7 @@
-FROM node:16-alpine3.14 AS microservice
+FROM node:16-alpine AS microservice
 
 COPY package.json ./
+COPY package-lock.json ./
 
 RUN npm install 
 

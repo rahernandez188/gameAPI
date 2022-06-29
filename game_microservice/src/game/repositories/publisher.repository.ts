@@ -1,36 +1,33 @@
-import { EntityRepository, Repository } from "typeorm";
-import { Publisher } from "../entities/publisher.entity";
+import { EntityRepository, Repository } from 'typeorm';
+import { Publisher } from '../entities/publisher.entity';
 @EntityRepository(Publisher)
 export class PublisherRepository extends Repository<Publisher> {
-
-  async getPublisherById(publisherId: Publisher){
-   
+  async getPublisherById(publisherId: Publisher) {
     let found = await this.findOne({
-      where:{
-        id: publisherId.id
-      }
+      where: {
+        id: publisherId.id,
+      },
     });
-    
-    if(found === undefined) found = {
-      id : 0,
-      name : '',
-      phone : '',
-      siret: ''
-    };
-    return  found;
+
+    if (found === undefined)
+      found = {
+        id: 0,
+        name: '',
+        phone: '',
+        siret: '',
+      };
+    return found;
   }
 
-  async insertPublisher(createPublisherDto){
+  async insertPublisher(createPublisherDto) {
     return await this.insert(createPublisherDto);
   }
 
-  async updatePublisher(id: number, updatePublisherDto){
+  async updatePublisher(id: number, updatePublisherDto) {
     return await this.update(id, updatePublisherDto);
-  }  
-
-
-  async deletePublisher(id: number){
-    return await this.delete(id);
   }
 
+  async deletePublisher(id: number) {
+    return await this.delete(id);
+  }
 }
